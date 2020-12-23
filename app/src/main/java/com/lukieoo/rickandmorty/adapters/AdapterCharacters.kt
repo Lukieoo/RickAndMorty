@@ -1,10 +1,12 @@
 package com.lukieoo.rickandmorty.adapters
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.lukieoo.rickandmorty.databinding.ItemCharacterBinding
 import com.lukieoo.rickandmorty.models.Result
@@ -12,11 +14,14 @@ import com.lukieoo.rickandmorty.util.AdapterOnClickListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_character.view.*
 
-class AdapterCharacters(var adapterOnClickListener: AdapterOnClickListener) :
+
+class AdapterCharacters(private var adapterOnClickListener: AdapterOnClickListener) :
     RecyclerView.Adapter<AdapterCharacters.ViewHolder>() {
 
     lateinit var character: ArrayList<Result>
     private lateinit var binding: ItemCharacterBinding
+    private lateinit var bundle: ActivityOptionsCompat
+    private lateinit var activity: Activity
 
     override fun getItemCount(): Int {
         return if (::character.isInitialized) {
@@ -26,6 +31,10 @@ class AdapterCharacters(var adapterOnClickListener: AdapterOnClickListener) :
             0
         }
 
+    }
+
+    fun setActivityForAnimation(activity: Activity) {
+        this.activity = activity
     }
 
     fun setCharacter(character: List<Result>) {
@@ -51,7 +60,13 @@ class AdapterCharacters(var adapterOnClickListener: AdapterOnClickListener) :
             .into(holder.characterImage)
 
         holder.itemView.setOnClickListener {
-            adapterOnClickListener.onClick(characterModel)
+            bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,
+                holder.characterImage,
+                "avatar"
+            )
+            adapterOnClickListener.onClick(characterModel, bundle)
+
         }
 
     }
