@@ -6,6 +6,8 @@ buildscript {
         retrofit_version = "2.9.0"
         rxjava_version = "3.0.8"
         android_rxjava_version = "3.0.0"
+        picasso_version = "2.71828"
+        hilt_viewmodels_version = "1.0.0-alpha02"
     }
 
     repositories {
