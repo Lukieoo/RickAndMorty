@@ -16,7 +16,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
-
     @Singleton
     @Provides
     fun provideGsonBuilder(): Gson {

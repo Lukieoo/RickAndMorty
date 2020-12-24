@@ -1,82 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
+    <data>
+
+        <variable
+            name="character_data"
+            type="com.lukieoo.rickandmorty.models.Result" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="0dp">
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/parentRelative"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp">
 
-            <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/tools"
-                android:id="@+id/cardImage"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_margin="3dp"
-                android:orientation="vertical"
-                android:padding="3dp"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="6dp"
-                card_view:cardBackgroundColor="@android:color/transparent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/character_image"
-                        android:transitionName="avatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="nothing"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/abc_vector_test" />
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/cardImage"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/parentRelative"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/character_name"
+
+                <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/tools"
+                    android:id="@+id/cardImage"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="6dp"
+                    card_view:cardBackgroundColor="@android:color/transparent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:image="@{character_data.image}"
+                            android:id="@+id/character_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="nothing"
+                            android:scaleType="centerCrop"
+                            android:transitionName="avatar" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="Rick Sanchez"
-                    android:textColor="#505362"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_marginTop="8dp"
-                    android:id="@+id/character_origin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="Rick Sanchez Name"
-                    android:textColor="#505362" />
-            </LinearLayout>
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toEndOf="@id/cardImage"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/character_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@{character_data.name}"
+                        android:textColor="#505362"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/character_origin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@{character_data.origin.name}"
+                        android:textColor="#505362" />
+
+                </LinearLayout>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

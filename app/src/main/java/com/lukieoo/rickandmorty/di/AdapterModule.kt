@@ -21,16 +21,7 @@ object AdapterModule {
 
     @Singleton
     @Provides
-    fun provideAdapterGenres(application: Application): AdapterCharacters {
-        return AdapterCharacters(object : AdapterOnClickListener {
-            override fun onClick(result: Result, bundle: ActivityOptionsCompat?) {
-
-                val intent = Intent(application.applicationContext, DetailActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                intent.putExtra("image", result.image)
-                application.startActivity(intent)
-
-            }
-        })
+    fun provideAdapterGenres(): AdapterCharacters {
+        return AdapterCharacters()
     }
 }

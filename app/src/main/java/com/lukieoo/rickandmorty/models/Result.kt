@@ -1,6 +1,8 @@
 package com.lukieoo.rickandmorty.models
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.databinding.BaseObservable
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 
@@ -17,10 +19,4 @@ data class Result(
     val status: String,
     val type: String,
     val url: String
-){
-     @BindingAdapter("ImageLoad")
-        fun setImageUrl(imageView: ImageView, url: String?) {
-            Picasso.get().load(url).into(imageView);
-        }
-
-}
+): BaseObservable()
