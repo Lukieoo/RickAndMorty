@@ -6,7 +6,7 @@
 
         <variable
             name="character_data"
-            type="com.lukieoo.rickandmorty.models.Result" />
+            type="com.lukieoo.rickandmorty.models.characters.Result" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

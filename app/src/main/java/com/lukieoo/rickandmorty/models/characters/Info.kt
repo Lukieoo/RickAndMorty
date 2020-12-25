@@ -1,4 +1,4 @@
-package com.lukieoo.rickandmorty.models
+package com.lukieoo.rickandmorty.models.characters
 
 data class Info(
     val count: Int,

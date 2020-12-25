@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lukieoo.rickandmorty.databinding.ItemCharacterBinding
-import com.lukieoo.rickandmorty.models.Result
+import com.lukieoo.rickandmorty.models.characters.Result
 import com.lukieoo.rickandmorty.util.AdapterOnClickListener
 
 
 class AdapterCharacters :
     RecyclerView.Adapter<AdapterCharacters.ViewHolder>() {
 
-    lateinit var character: ArrayList<Result>
+    private var character: ArrayList<Result> = arrayListOf()
     private lateinit var binding: ItemCharacterBinding
     private lateinit var adapterOnClickListener: AdapterOnClickListener
 
@@ -19,8 +19,10 @@ class AdapterCharacters :
         this.adapterOnClickListener = adapterOnClickListener
     }
 
-    fun setCharacter(character: List<Result>) {
-        this.character = character as ArrayList<Result>
+    fun addCharacters(characters: List<Result>) {
+        for (character in characters) {
+            this.character.add(character)
+        }
         notifyDataSetChanged()
     }
 
@@ -42,13 +44,7 @@ class AdapterCharacters :
     }
 
     override fun getItemCount(): Int {
-        return if (::character.isInitialized) {
-
-            character.size
-        } else {
-            0
-        }
-
+        return character.size
     }
 
     inner class ViewHolder(val binding: ItemCharacterBinding) :

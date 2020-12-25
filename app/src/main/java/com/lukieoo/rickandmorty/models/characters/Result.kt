@@ -1,10 +1,8 @@
-package com.lukieoo.rickandmorty.models
+package com.lukieoo.rickandmorty.models.characters
 
-import android.graphics.drawable.Drawable
-import android.widget.ImageView
 import androidx.databinding.BaseObservable
-import androidx.databinding.BindingAdapter
-import com.squareup.picasso.Picasso
+import com.lukieoo.rickandmorty.models.characters.Location
+import com.lukieoo.rickandmorty.models.characters.Origin
 
 data class Result(
     val created: String,

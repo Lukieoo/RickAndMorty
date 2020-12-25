@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.lukieoo.rickandmorty.models.ApiDataModel
+import com.lukieoo.rickandmorty.models.characters.ApiDataModel
 import com.lukieoo.rickandmorty.retrofit.ApiRetrofit
 import com.lukieoo.rickandmorty.util.DataWithStates
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -37,7 +37,9 @@ class CharacterViewModel
         charactersLiveData.addSource<DataWithStates<ApiDataModel>>(
             source
         ) { t ->
-            charactersLiveData.value = t.data
+           if (t.data!=null){
+               charactersLiveData.value = t.data
+           }
             charactersLiveData.removeSource(source)
         }
 

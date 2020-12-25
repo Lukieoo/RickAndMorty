@@ -7,13 +7,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.lukieoo.rickandmorty.adapters.AdapterCharacters
 import com.lukieoo.rickandmorty.databinding.ActivityMainBinding
-import com.lukieoo.rickandmorty.models.Result
+import com.lukieoo.rickandmorty.models.characters.ApiDataModel
+import com.lukieoo.rickandmorty.models.characters.Result
 import com.lukieoo.rickandmorty.util.AdapterOnClickListener
 import com.lukieoo.rickandmorty.viewModel.CharacterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 
@@ -25,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     private val characterViewModel: CharacterViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
+    private var isEnd = false
+    private var page = 1
+    private var timer: Timer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,9 +39,38 @@ class MainActivity : AppCompatActivity() {
         initViewBinding()
         // init Adapter for recyclerView
         initRecyclerView()
+        // set listener for pagination per 20
+        setRecyclerViewPagination()
         // init view model observer for data
         initViewModel()
 
+    }
+
+    private fun setRecyclerViewPagination() {
+        isEnd = false
+        binding.charactersList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    if (!isEnd) {
+                        isEnd = true
+                        if (adapterCharacters.itemCount > 0) {
+                            //  showProgressBar()
+                            loadMoreCharacters()
+
+                        }
+                    }
+
+                }
+            }
+        })
+    }
+
+    private fun loadMoreCharacters() {
+
+        page++
+        characterViewModel.getCharacterByPage(page)
     }
 
     private fun initViewBinding() {
@@ -45,8 +81,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         characterViewModel.observeCharacters().observe(this, Observer {
-            adapterCharacters.setCharacter(it.results)
+            adapterCharacters.addCharacters(it.results)
+            checkIsLastPage(it)
+            updateView(it)
         })
+    }
+
+    private fun updateView(it: ApiDataModel) {
+        binding.numberCharacters.text = "${adapterCharacters.itemCount}/${it.info.count}"
+    }
+
+    private fun checkIsLastPage(it: ApiDataModel) {
+        timer = Timer()
+        timer!!.schedule(object : TimerTask() {
+            override fun run() {
+                isEnd = page == it.info.pages
+            }
+        }, 600)
     }
 
     private fun initRecyclerView() {
@@ -57,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 val gson: Gson = Gson()
                 intent.putExtra("characterDetails", gson.toJson(result))
 
-                var bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this@MainActivity,
                     imageView,
                     "avatar"

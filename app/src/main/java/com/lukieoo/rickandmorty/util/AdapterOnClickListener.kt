@@ -1,12 +1,11 @@
 package com.lukieoo.rickandmorty.util
 
 import android.widget.ImageView
-import androidx.core.app.ActivityOptionsCompat
-import com.lukieoo.rickandmorty.models.Result
+import com.lukieoo.rickandmorty.models.characters.Result
 
 /**
  * Interface For onClick Event
  */
 interface AdapterOnClickListener {
-    fun onClick(result: Result,imageView : ImageView)
+    fun onClick(result: Result, imageView : ImageView)
 }
