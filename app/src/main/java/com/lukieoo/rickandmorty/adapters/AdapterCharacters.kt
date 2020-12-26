@@ -19,6 +19,11 @@ class AdapterCharacters :
         this.adapterOnClickListener = adapterOnClickListener
     }
 
+    fun clearCharacters() {
+        character.clear()
+        notifyDataSetChanged()
+    }
+
     fun addCharacters(characters: List<Result>) {
         for (character in characters) {
             this.character.add(character)

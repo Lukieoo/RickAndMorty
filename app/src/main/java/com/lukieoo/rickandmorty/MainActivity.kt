@@ -2,6 +2,7 @@ package com.lukieoo.rickandmorty
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.lukieoo.rickandmorty.databinding.ActivityMainBinding
 import com.lukieoo.rickandmorty.models.characters.ApiDataModel
 import com.lukieoo.rickandmorty.models.characters.Result
 import com.lukieoo.rickandmorty.util.AdapterOnClickListener
+import com.lukieoo.rickandmorty.util.ProgressStatus
 import com.lukieoo.rickandmorty.viewModel.CharacterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -21,7 +23,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProgressStatus {
 
     @Inject
     lateinit var adapterCharacters: AdapterCharacters
@@ -39,11 +41,22 @@ class MainActivity : AppCompatActivity() {
         initViewBinding()
         // init Adapter for recyclerView
         initRecyclerView()
+        // set refresh event
+        setProgressStatus()
         // set listener for pagination per 20
         setRecyclerViewPagination()
         // init view model observer for data
         initViewModel()
 
+    }
+
+    private fun setProgressStatus() {
+        showProgress()
+        binding.refreshLayout.setOnRefreshListener {
+            page = 1
+            adapterCharacters.clearCharacters()
+            characterViewModel.getCharacterByPage(page)
+        }
     }
 
     private fun setRecyclerViewPagination() {
@@ -54,11 +67,12 @@ class MainActivity : AppCompatActivity() {
 
                 if (!recyclerView.canScrollVertically(1)) {
                     if (!isEnd) {
+
                         isEnd = true
                         if (adapterCharacters.itemCount > 0) {
                             //  showProgressBar()
                             loadMoreCharacters()
-
+                            showProgress()
                         }
                     }
 
@@ -68,7 +82,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadMoreCharacters() {
-
         page++
         characterViewModel.getCharacterByPage(page)
     }
@@ -77,18 +90,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        setSupportActionBar(binding.toolbar)
     }
 
     private fun initViewModel() {
         characterViewModel.observeCharacters().observe(this, Observer {
-            adapterCharacters.addCharacters(it.results)
-            checkIsLastPage(it)
-            updateView(it)
+            if (it != null) {
+                adapterCharacters.addCharacters(it.results)
+                checkIsLastPage(it)
+                updateView(it)
+                binding.error.visibility = View.GONE
+            } else {
+                binding.error.visibility = View.VISIBLE
+
+            }
+            hideProgress()
         })
     }
 
     private fun updateView(it: ApiDataModel) {
         binding.numberCharacters.text = "${adapterCharacters.itemCount}/${it.info.count}"
+
     }
 
     private fun checkIsLastPage(it: ApiDataModel) {
@@ -118,5 +141,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.charactersList.adapter = adapterCharacters
+    }
+
+    override fun hideProgress() {
+        binding.refreshLayout.isRefreshing = false
+    }
+
+    override fun showProgress() {
+        binding.refreshLayout.isRefreshing = true
     }
 }

@@ -37,9 +37,7 @@ class CharacterViewModel
         charactersLiveData.addSource<DataWithStates<ApiDataModel>>(
             source
         ) { t ->
-           if (t.data!=null){
-               charactersLiveData.value = t.data
-           }
+            charactersLiveData.value = t.data
             charactersLiveData.removeSource(source)
         }
 

@@ -15,14 +15,23 @@
         android:layout_height="match_parent"
         tools:context=".DetailActivity">
 
-        <ImageView
-            android:id="@+id/return_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_baseline_keyboard"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
 
@@ -33,7 +42,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/return_button">
+            app:layout_constraintTop_toBottomOf="@+id/appBar">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -159,8 +168,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_origin_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -182,8 +193,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+
+                    android:id="@+id/layout_origin_type"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,8 +219,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+
+                    android:id="@+id/layout_origin_dimension"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -231,12 +248,28 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ListView
+        <ProgressBar
+            android:elevation="10dp"
+            android:id="@+id/refreshLayout"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/episode_list"
+            app:layout_constraintStart_toStartOf="@+id/episode_list"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/episode_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:nestedScrollingEnabled="true"
+            android:orientation="vertical"
             android:padding="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:listitem="@layout/item_episode" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
