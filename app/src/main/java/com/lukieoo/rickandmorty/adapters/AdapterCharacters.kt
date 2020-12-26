@@ -25,8 +25,19 @@ class AdapterCharacters :
     }
 
     fun addCharacters(characters: List<Result>) {
+        var isHere = false;
         for (character in characters) {
-            this.character.add(character)
+            isHere = false;
+            for (thisCharacter in this.character) {
+                if (thisCharacter.id == character.id) {
+                    isHere = true
+                    break
+
+                }
+            }
+            if (!isHere) {
+                this.character.add(character)
+            }
         }
         notifyDataSetChanged()
     }

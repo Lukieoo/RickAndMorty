@@ -15,19 +15,17 @@ class AdapterEpisodes :
     private lateinit var binding: ItemEpisodeBinding
     private lateinit var adapterOnClickListener: AdapterOnClickListener
 
-    fun setAdapterOnClickListener(adapterOnClickListener: AdapterOnClickListener) {
-        this.adapterOnClickListener = adapterOnClickListener
-    }
-
     fun clearEpisodes() {
         episodes.clear()
         notifyDataSetChanged()
     }
 
-    fun addEpisodes(episode:  Episode) {
-        //for (episode in episodes) {
-            this.episodes.add(episode)
-        //}
+    fun getEpisodeList(): List<Episode> {
+        return episodes;
+    }
+
+    fun setEpisodes(episodes: List<Episode>) {
+        this.episodes = episodes as ArrayList<Episode>
         notifyDataSetChanged()
     }
 
