@@ -1,14 +1,11 @@
 package com.lukieoo.rickandmorty.viewModel
 
-import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lukieoo.rickandmorty.models.episodes.Episode
 import com.lukieoo.rickandmorty.models.location.Location
 import com.lukieoo.rickandmorty.retrofit.ApiRetrofit
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Flowable
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -27,7 +24,6 @@ class LocationViewModel
 
                 }, { t ->
                     t.printStackTrace()
-                    locationLiveData.value = null
                 })
         }
     }

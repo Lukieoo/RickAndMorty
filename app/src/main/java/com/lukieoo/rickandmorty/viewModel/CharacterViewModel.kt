@@ -34,7 +34,7 @@ class CharacterViewModel
                 .subscribeOn(Schedulers.io())
         )
 
-        charactersLiveData.addSource<DataWithStates<ApiDataModel>>(
+        charactersLiveData.addSource(
             source
         ) { t ->
             charactersLiveData.value = t.data

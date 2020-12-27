@@ -7,7 +7,6 @@ import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.lukieoo.rickandmorty.adapters.AdapterCharacters
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity(), ProgressStatus {
     }
 
     private fun initViewModel() {
-        characterViewModel.observeCharacters().observe(this, Observer {
+        characterViewModel.observeCharacters().observe(this, {
             if (it != null) {
                 adapterCharacters.addCharacters(it.results)
                 checkIsLastPage(it)
@@ -128,7 +127,7 @@ class MainActivity : AppCompatActivity(), ProgressStatus {
             override fun onClick(result: Result, imageView: ImageView) {
                 val intent = Intent(application.applicationContext, DetailActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                val gson: Gson = Gson()
+                val gson = Gson()
                 intent.putExtra("characterDetails", gson.toJson(result))
 
                 val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(

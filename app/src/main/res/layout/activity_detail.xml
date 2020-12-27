@@ -76,10 +76,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
-                                android:contentDescription="nothing"
+                                android:contentDescription="@string/image_character"
                                 android:maxHeight="200dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/abc_vector_test"
                                 android:transitionName="avatar" />
                         </RelativeLayout>
 
@@ -115,7 +114,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Status: "
+                                android:text="@string/status"
                                 android:textColor="#505362"
                                 android:textStyle="bold" />
 
@@ -151,7 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Current Location: "
+                        android:text="@string/current_location"
                         android:textColor="#505362"
                         android:textStyle="bold" />
 
@@ -177,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Origin name: "
+                        android:text="@string/origin_name"
                         android:textColor="#505362"
                         android:textStyle="bold" />
 
@@ -203,7 +202,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Origin type: "
+                        android:text="@string/origin_type"
                         android:textColor="#505362"
                         android:textStyle="bold" />
 
@@ -229,7 +228,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Origin dimension: "
+                        android:text="@string/origin_dimension"
                         android:textColor="#505362"
                         android:textStyle="bold" />
 
@@ -253,7 +252,7 @@
             android:id="@+id/refreshLayout"
             android:layout_width="50dp"
             android:layout_height="0dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/episode_list"
             app:layout_constraintStart_toStartOf="@+id/episode_list"

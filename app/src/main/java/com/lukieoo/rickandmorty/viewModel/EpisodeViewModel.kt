@@ -33,6 +33,7 @@ class EpisodeViewModel
                         }
                     }, { t ->
                         t.printStackTrace()
+                        episodesLiveData.value = null
                     })
             }
 

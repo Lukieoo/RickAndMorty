@@ -1,8 +1,6 @@
 package com.lukieoo.rickandmorty.models.characters
 
 import androidx.databinding.BaseObservable
-import com.lukieoo.rickandmorty.models.characters.Location
-import com.lukieoo.rickandmorty.models.characters.Origin
 
 data class Result(
     val created: String,

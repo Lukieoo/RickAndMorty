@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lukieoo.rickandmorty.databinding.ItemEpisodeBinding
 import com.lukieoo.rickandmorty.models.episodes.Episode
-import com.lukieoo.rickandmorty.util.AdapterOnClickListener
 
 
 class AdapterEpisodes :
@@ -13,15 +12,10 @@ class AdapterEpisodes :
 
     private var episodes: ArrayList<Episode> = arrayListOf()
     private lateinit var binding: ItemEpisodeBinding
-    private lateinit var adapterOnClickListener: AdapterOnClickListener
 
     fun clearEpisodes() {
         episodes.clear()
         notifyDataSetChanged()
-    }
-
-    fun getEpisodeList(): List<Episode> {
-        return episodes;
     }
 
     fun setEpisodes(episodes: List<Episode>) {
@@ -45,7 +39,7 @@ class AdapterEpisodes :
         return episodes.size
     }
 
-    inner class ViewHolder(val binding: ItemEpisodeBinding) :
+    inner class ViewHolder(private val binding: ItemEpisodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         //Init Data Binding
         fun bind(episode: Episode) {

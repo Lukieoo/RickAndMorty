@@ -30,6 +30,7 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/background"
                 android:scaleType="center"
+                android:contentDescription="@string/rick_and_morty_image"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9"
                 app:tint="#11000000" />
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="No data"
+            android:text="@string/no_data"
             android:visibility="gone" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

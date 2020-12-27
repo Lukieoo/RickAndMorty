@@ -25,9 +25,9 @@ class AdapterCharacters :
     }
 
     fun addCharacters(characters: List<Result>) {
-        var isHere = false;
+        var isHere: Boolean
         for (character in characters) {
-            isHere = false;
+            isHere = false
             for (thisCharacter in this.character) {
                 if (thisCharacter.id == character.id) {
                     isHere = true

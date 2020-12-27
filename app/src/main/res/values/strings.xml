@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
+    <string name="status">"Status: "</string>
+    <string name="current_location">"Current Location: "</string>
+    <string name="rick_and_morty_image">Rick and Morty Image</string>
+    <string name="image_character">image character</string>
+    <string name="origin_name">"Origin name: "</string>
+    <string name="origin_type">"Origin type: "</string>
+    <string name="origin_dimension">"Origin dimension: "</string>
+    <string name="no_data">No data</string>
 </resources>
